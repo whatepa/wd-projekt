@@ -18,5 +18,13 @@ def dashboard_pie():
     graph_html = fig.to_html(full_html=False)
     return render_template('dashboard_pie.html', graph_html=graph_html)
 
+@app.route('/dashboard_age')
+def dashboard_age():
+    fig = px.histogram(df, x='age', color='stroke', nbins=30, 
+                       title='Rozkład wieku względem udaru',
+                       labels={'age': 'Wiek', 'count': 'Liczba przypadków'})
+    graph_html = fig.to_html(full_html=False)
+    return render_template('dashboard_age.html', graph_html=graph_html)
+
 if __name__ == '__main__':
     app.run(debug=True)
