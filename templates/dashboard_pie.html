@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <title>Dashboard: Wykres kołowy</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">Home</a>
+    </nav>
+    <div class="container mt-4">
+      <h1 class="text-center">Rozkład przypadków udaru</h1>
+      <div class="graph-container">{{ graph_html|safe }}</div>
+      <a href="/" class="btn btn-secondary mt-3">Powrót</a>
+    </div>
+  </body>
+</html>
