@@ -26,5 +26,13 @@ def dashboard_age():
     graph_html = fig.to_html(full_html=False)
     return render_template('dashboard_age.html', graph_html=graph_html)
 
+@app.route('/dashboard_scatter')
+def dashboard_scatter():
+    fig = px.scatter(df, x='avg_glucose_level', y='bmi', color='stroke',
+                     title='Poziom glukozy a BMI',
+                     labels={'avg_glucose_level': 'Średni poziom glukozy', 'bmi': 'BMI'})
+    graph_html = fig.to_html(full_html=False)
+    return render_template('dashboard_scatter.html', graph_html=graph_html)
+
 if __name__ == '__main__':
     app.run(debug=True)
