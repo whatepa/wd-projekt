@@ -34,5 +34,22 @@ def dashboard_scatter():
     graph_html = fig.to_html(full_html=False)
     return render_template('dashboard_scatter.html', graph_html=graph_html)
 
+@app.route('/dashboard_cm')
+def dashboard_cm():
+    numeric_df = df.select_dtypes(include=['number'])
+    corr_matrix = numeric_df.corr()
+    
+    fig = go.Figure(data=go.Heatmap(
+        x=corr_matrix.columns,
+        y=corr_matrix.columns,
+        z=corr_matrix.values,
+        colorscale='RdBu',
+        zmin=-1,
+        zmax=1
+    ))
+    
+    graph_html = fig.to_html(full_html=False)
+    return render_template('dashboard_cm.html', graph_html=graph_html)
+
 if __name__ == '__main__':
     app.run(debug=True)
