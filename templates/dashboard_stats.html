@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <title>Dashboard: Rozkład wieku</title>
+  </head>
+    <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">Home</a>
+    </nav>
+    <div class="container mt-4">
+      <h1 class="text-center">Statystyki zbioru</h1>
+      <div class="graph-container">
+        <h3>Dane numeryczne</h3>
+        <table class="table table-bordered table-striped">
+          <thead class="text-center">
+            <tr>
+              <th>Atrybut</th>
+              <th>Średnia</th>
+              <th>Mediana</th>
+              <th>Min</th>
+              <th>Max</th>
+              <th>Odch. std.</th>
+              <th>Braki danych</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for feature, stats in numeric_stats.items() %}
+            <tr>
+              <td><strong>{{ feature }}</strong></td>
+              <td>{{ "%.2f"|format(stats.mean) }}</td>
+              <td>{{ "%.2f"|format(stats.median) }}</td>
+              <td>{{ "%.2f"|format(stats.min) }}</td>
+              <td>{{ "%.2f"|format(stats.max) }}</td>
+              <td>{{ "%.2f"|format(stats.std) }}</td>
+              <td>{{ stats.missing }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <h3>Dane kategoryczne</h3>
+        <table class="table table-bordered table-striped">
+          <thead class="text-center">
+            <tr>
+              <th>Atrybut</th>
+              <th>Unikalne wartości</th>
+              <th>Najczęstsza wartość (moda)</th>
+              <th>Częstość mody</th>
+              <th>Braki danych</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for feature, stats in categorical_stats.items() %}
+            <tr>
+              <td><strong>{{ feature }}</strong></td>
+              <td>{{ stats.unique }}</td>
+              <td>{{ stats.mode }}</td>
+              <td>{{ stats.top_freq }}</td>
+              <td>{{ stats.missing }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <a href="/" class="btn btn-secondary mt-3">Powrót</a>
+    </div>
+  </body>
+</html>

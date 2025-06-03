@@ -12,6 +12,33 @@ df['stroke'] = df['stroke'].map({0: 'Brak udaru', 1: 'Udar'})
 def index():
     return render_template('index.html')
 
+@app.route('/dashboard_stats')
+def dashboardstats():
+  numeric_df = df.select_dtypes(include=['number'])
+  categorical_df = df.select_dtypes(include=['object', 'category', 'bool'])
+
+  numeric_stats = {}
+  for column in numeric_df.columns:
+      numeric_stats[column] = {
+          'mean': numeric_df[column].mean(),
+          'median': numeric_df[column].median(),
+          'min': numeric_df[column].min(),
+          'max': numeric_df[column].max(),
+          'std': numeric_df[column].std(),
+          'missing': numeric_df[column].isna().sum()
+      }
+
+  categorical_stats = {}
+  for column in categorical_df.columns:
+      categorical_stats[column] = {
+          'unique': categorical_df[column].nunique(),
+          'mode': categorical_df[column].mode().iloc[0] if not categorical_df[column].mode().empty else None,
+          'top_freq': categorical_df[column].value_counts().iloc[0] if not categorical_df[column].value_counts().empty else 0,
+          'missing': categorical_df[column].isna().sum()
+      }
+
+  return render_template('dashboard_stats.html', numeric_stats=numeric_stats, categorical_stats=categorical_stats)
+
 @app.route('/dashboard_pie')
 def dashboard_pie():
     fig = px.pie(df, names='stroke', title='Rozkład przypadków udaru', height=650)
