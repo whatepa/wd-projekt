@@ -14,25 +14,32 @@ def index():
 
 @app.route('/dashboard_pie')
 def dashboard_pie():
-    fig = px.pie(df, names='stroke', title='Rozkład przypadków udaru')
+    fig = px.pie(df, names='stroke', title='Rozkład przypadków udaru', height=650)
     graph_html = fig.to_html(full_html=False)
     return render_template('dashboard_pie.html', graph_html=graph_html)
 
 @app.route('/dashboard_age')
 def dashboard_age():
     fig = px.histogram(df, x='age', color='stroke', nbins=30, 
-                       title='Rozkład wieku względem udaru',
+                       title='Rozkład wieku względem udaru', height=650,
                        labels={'age': 'Wiek', 'count': 'Liczba przypadków'})
     graph_html = fig.to_html(full_html=False)
     return render_template('dashboard_age.html', graph_html=graph_html)
 
 @app.route('/dashboard_scatter')
 def dashboard_scatter():
-    fig = px.scatter(df, x='avg_glucose_level', y='bmi', color='stroke',
-                     title='Poziom glukozy a BMI',
+    fig = px.scatter(df, x='avg_glucose_level', y='bmi', color='stroke', 
+                     title='Poziom glukozy a BMI', height=650,
                      labels={'avg_glucose_level': 'Średni poziom glukozy', 'bmi': 'BMI'})
     graph_html = fig.to_html(full_html=False)
     return render_template('dashboard_scatter.html', graph_html=graph_html)
+
+@app.route('/dashboard_work')
+def dashboard_work():
+    fig = px.histogram(df, x='work_type', color='gender', facet_col='stroke', height=650,
+                       title='Rodzaj pracy i płeć względem udaru')
+    graph_html = fig.to_html(full_html=False)
+    return render_template('dashboard_work.html', graph_html=graph_html)
 
 @app.route('/dashboard_cm')
 def dashboard_cm():
