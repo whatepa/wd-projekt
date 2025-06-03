@@ -1,7 +1,8 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+import math
 
 app = Flask(__name__)
 
@@ -41,9 +42,33 @@ def dashboardstats():
 
 @app.route('/dashboard_pie')
 def dashboard_pie():
-    fig = px.pie(df, names='stroke', title='Rozkład przypadków udaru', height=650)
-    graph_html = fig.to_html(full_html=False)
-    return render_template('dashboard_pie.html', graph_html=graph_html)
+    gender = request.args.get('gender', 'both')
+    min_age = math.floor(float(request.args.get('min_age', str(df['age'].min()))))
+    max_age = math.floor(float(request.args.get('max_age', str(df['age'].max()))))
+
+    filtered_df = df.copy()
+    if gender in ['Male', 'Female']:
+        filtered_df = filtered_df[filtered_df['gender'] == gender]
+    filtered_df = filtered_df[(filtered_df['age'] >= min_age) & (filtered_df['age'] <= max_age)]
+
+    gender_label = gender if gender != "both" else "Wszyscy"
+    title = f'Rozkład udarów - Wiek: {min_age}-{max_age}, Płeć: {gender_label}'
+
+    fig = px.pie(
+        filtered_df, 
+        names='stroke', 
+        title=title,
+    )
+
+    template_data = {
+        'graph_html': fig.to_html(full_html=False),
+        'current_gender': gender,
+        'min_age': min_age,
+        'max_age': max_age,
+        'age_range': [df['age'].min(), df['age'].max()]
+    }
+
+    return render_template('dashboard_pie.html', **template_data)
 
 @app.route('/dashboard_age')
 def dashboard_age():
