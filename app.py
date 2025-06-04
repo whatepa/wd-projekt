@@ -7,7 +7,8 @@ import math
 app = Flask(__name__)
 
 df = pd.read_csv('brain_stroke.csv')
-df['stroke'] = df['stroke'].map({0: 'Brak udaru', 1: 'Udar'})
+df_mapped = df.copy()
+df_mapped['stroke'] = df_mapped['stroke'].map({0: 'Brak udaru', 1: 'Udar'})
 
 @app.route('/')
 def index():
@@ -16,7 +17,7 @@ def index():
 @app.route('/dashboard_stats')
 def dashboardstats():
   numeric_df = df.select_dtypes(include=['number'])
-  categorical_df = df.select_dtypes(include=['object', 'category', 'bool'])
+  categorical_df = df_mapped.select_dtypes(include=['object', 'category', 'bool'])
 
   numeric_stats = {}
   for column in numeric_df.columns:
@@ -46,7 +47,7 @@ def dashboard_pie():
     min_age = math.floor(float(request.args.get('min_age', str(df['age'].min()))))
     max_age = math.floor(float(request.args.get('max_age', str(df['age'].max()))))
 
-    filtered_df = df.copy()
+    filtered_df = df_mapped.copy()
     if gender in ['Male', 'Female']:
         filtered_df = filtered_df[filtered_df['gender'] == gender]
     filtered_df = filtered_df[(filtered_df['age'] >= min_age) & (filtered_df['age'] <= max_age)]
@@ -72,7 +73,7 @@ def dashboard_pie():
 
 @app.route('/dashboard_age')
 def dashboard_age():
-    fig = px.histogram(df, x='age', color='stroke', nbins=30, 
+    fig = px.histogram(df_mapped, x='age', color='stroke', nbins=30, 
                        title='Rozkład wieku względem udaru', height=650,
                        labels={'age': 'Wiek', 'count': 'Liczba przypadków'})
     graph_html = fig.to_html(full_html=False)
@@ -80,7 +81,7 @@ def dashboard_age():
 
 @app.route('/dashboard_scatter')
 def dashboard_scatter():
-    fig = px.scatter(df, x='avg_glucose_level', y='bmi', color='stroke', 
+    fig = px.scatter(df_mapped, x='avg_glucose_level', y='bmi', color='stroke', 
                      title='Poziom glukozy a BMI', height=650,
                      labels={'avg_glucose_level': 'Średni poziom glukozy', 'bmi': 'BMI'})
     graph_html = fig.to_html(full_html=False)
@@ -88,7 +89,7 @@ def dashboard_scatter():
 
 @app.route('/dashboard_work')
 def dashboard_work():
-    fig = px.histogram(df, x='work_type', color='gender', facet_col='stroke', height=650,
+    fig = px.histogram(df_mapped, x='work_type', color='gender', facet_col='stroke', height=650,
                        title='Rodzaj pracy i płeć względem udaru')
     graph_html = fig.to_html(full_html=False)
     return render_template('dashboard_work.html', graph_html=graph_html)
