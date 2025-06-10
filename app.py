@@ -164,4 +164,4 @@ def dashboard_categorical():
     return render_template('dashboard_categorical.html', graph_html=graph_html)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)
