@@ -1,33 +1,93 @@
 <!DOCTYPE html>
 <html lang="pl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-    <title>Wizualizacja Danych</title>
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="/">Home</a>
-    </nav>
-    <div class="container mt-4">
-      <h1 class="text-center">Wizualizacja danych o udarach</h1>
-      <div class="graph-container">
-        <h3>Dostępne dashboardy:</h3>
-        <ul>
-          <li><a href="/dashboard_stats">Statystyki zbioru</a></li>
-          <li><a href="/dashboard_pie">Rozkład przypadków udaru (wykres kołowy)</a></li>
-          <li><a href="/dashboard_age">Rozkład wieku względem udaru (histogram)</a></li>
-          <li><a href="/dashboard_scatter">Poziom glukozy a BMI (scatter)</a></li>
-          <li><a href="/dashboard_work">Rodzaj pracy i płeć względem udaru</a></li>
-          <li><a href="/dashboard_cm">Macierz korelacji - zmienne numeryczne</a></li>
-          <li><a href="/dashboard_categorical">Macierz korelacji - zmienne kategoryczne</a></li>
-        </ul>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <title>Wizualizacja Danych</title>
+</head>
+
+<body>
+  <div class="container mt-4">
+    <h1 class="text-center mb-4 fw-bold">Wizualizacja danych o udarach</h1>
+    <div class="graph-container">
+      <h3 class="mb-3 ">Dostępne dashboardy:</h3>
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+          <div class="card h-100">
+            <a href="/dashboard_stats" class="text-decoration-none text-dark">
+              <img src="{{ url_for('static', filename='images/1.jpg') }}" class="card-img-top" alt="Obrazek przedstawiający statystyki zbioru danych">
+              <div class="card-body">
+                <h5 class="card-title text-center">Statystyki zbioru</h5>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <a href="/dashboard_pie" class="text-decoration-none text-dark">
+              <img src="{{ url_for('static', filename='images/2.jpg') }}" class="card-img-top" alt="Wykres kołowy przedstawiający rozkład przypadków udaru">
+              <div class="card-body">
+                <h5 class="card-title text-center">Rozkład przypadków udaru <p>(wykres kołowy)</p></h5>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <a href="/dashboard_age" class="text-decoration-none text-dark">
+              <img src="{{ url_for('static', filename='images/3.jpg') }}" class="card-img-top" alt="Histogram przedstawiający rozkład wieku względem udaru">
+              <div class="card-body">
+                <h5 class="card-title text-center ">Rozkład wieku względem udaru (histogram)</h5>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <a href="/dashboard_scatter" class="text-decoration-none text-dark">
+              <img src="{{ url_for('static', filename='images/4.jpg') }}" class="card-img-top" alt="Wykres punktowy poziomu glukozy a BMI">
+              <div class="card-body">
+                <h5 class="card-title text-center ">Poziom glukozy a BMI (scatter)</h5>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <a href="/dashboard_work" class="text-decoration-none text-dark">
+              <img src="{{ url_for('static', filename='images/5.jpg') }}" class="card-img-top" alt="Wykres zależności rodzaju pracy i płci względem udaru">
+              <div class="card-body">
+                <h5 class="card-title text-center ">Rodzaj pracy i płeć względem udaru</h5>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <a href="/dashboard_cm" class="text-decoration-none text-dark">
+              <img src="{{ url_for('static', filename='images/6.jpg') }}" class="card-img-top" alt="Macierz korelacji dla zmiennych numerycznych">
+              <div class="card-body">
+                <h5 class="card-title text-center ">Macierz korelacji - zmienne numeryczne</h5>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <a href="/dashboard_categorical" class="text-decoration-none text-dark">
+              <img src="{{ url_for('static', filename='images/6.jpg') }}" class="card-img-top" alt="Macierz korelacji dla zmiennych kategorycznych">
+              <div class="card-body">
+                <h5 class="card-title text-center ">Macierz korelacji - zmienne kategoryczne</h5>
+              </div>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>

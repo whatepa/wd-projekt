@@ -1,75 +1,60 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rozkład udarów</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <title>Rozkład udarów</title>
 </head>
-<body class="bg-light">
-    <div class="container mt-4">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <h1 class="text-center mb-4">Rozkład udarów</h1>
-                
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <form>
-                            <div class="row g-3">
-                                <div class="col-md-4">
-                                    <label for="gender" class="form-label">Płeć</label>
-                                    <select id="gender" name="gender" class="form-select" onchange="this.form.submit()">
-                                        <option value="both" {% if current_gender == 'both' %}selected{% endif %}>Wszyscy</option>
-                                        <option value="Male" {% if current_gender == 'Male' %}selected{% endif %}>Mężczyźni</option>
-                                        <option value="Female" {% if current_gender == 'Female' %}selected{% endif %}>Kobiety</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="range-container">
-                                        <label class="form-label">Zakres wieku</label>
-                                        <div class="range-value" id="minAgeValue">{{ min_age }}</div>
-                                        <input type="range" class="form-range" 
-                                               id="minAge" name="min_age" 
-                                               min="{{ age_range[0] }}" max="{{ age_range[1] }}" 
-                                               value="{{ min_age }}" 
-                                               oninput="updateMinAgeValue(this.value)" 
-                                               onchange="this.form.submit()">
-                                    </div>
-                                    <div class="range-container">
-                                        <div class="range-value" id="maxAgeValue">{{ max_age }}</div>
-                                        <input type="range" class="form-range" 
-                                               id="maxAge" name="max_age" 
-                                               min="{{ age_range[0] }}" max="{{ age_range[1] }}" 
-                                               value="{{ max_age }}" 
-                                               oninput="updateMaxAgeValue(this.value)" 
-                                               onchange="this.form.submit()">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
 
-                <div class="card">
-                    <div class="card-body">
-                        {{ graph_html|safe }}
-                    </div>
-                </div>
-                
-                <a href="/" class="btn btn-secondary mt-3">Powrót</a>
+<body>
+  <div class="container mt-4">
+    <h1 class="text-center fw-bold mb-4">Rozkład udarów</h1>
+    <div class="graph-container">
+      <form>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label for="gender" class="form-label">Płeć</label>
+            <select id="gender" name="gender" class="form-select" onchange="this.form.submit()">
+              <option value="both" {% if current_gender=='both' %}selected{% endif %}>Wszyscy</option>
+              <option value="Male" {% if current_gender=='Male' %}selected{% endif %}>Mężczyźni</option>
+              <option value="Female" {% if current_gender=='Female' %}selected{% endif %}>Kobiety
+              </option>
+            </select>
+          </div>
+          <div class="col-md-8">
+            <div class="range-container">
+              <label class="form-label">Zakres wieku</label>
+              <div class="range-value" id="minAgeValue">{{ min_age }}</div>
+              <input type="range" class="form-range" id="minAge" name="min_age" min="{{ age_range[0] }}"
+                max="{{ age_range[1] }}" value="{{ min_age }}" oninput="updateMinAgeValue(this.value)"
+                onchange="this.form.submit()">
             </div>
+            <div class="range-container">
+              <div class="range-value" id="maxAgeValue">{{ max_age }}</div>
+              <input type="range" class="form-range" id="maxAge" name="max_age" min="{{ age_range[0] }}"
+                max="{{ age_range[1] }}" value="{{ max_age }}" oninput="updateMaxAgeValue(this.value)"
+                onchange="this.form.submit()">
+            </div>
+          </div>
         </div>
+      </form>
+      {{ graph_html|safe }}
     </div>
+    <a href="/" class="btn btn-secondary mt-3">Powrót</a>
+  </div>
+  <script>
+    function updateMinAgeValue(value) {
+      document.getElementById('minAgeValue').textContent = Math.floor(value);
+    }
 
-    <script>
-        function updateMinAgeValue(value) {
-            document.getElementById('minAgeValue').textContent = Math.floor(value);
-        }
-        
-        function updateMaxAgeValue(value) {
-            document.getElementById('maxAgeValue').textContent = Math.floor(value);
-        }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    function updateMaxAgeValue(value) {
+      document.getElementById('maxAgeValue').textContent = Math.floor(value);
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
