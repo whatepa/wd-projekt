@@ -1,145 +1,121 @@
 <!DOCTYPE html>
 <html lang="pl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-    <style>
-      .card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-      .card:hover {
-        transform: scale(1.03);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      }
-    </style>
-    <title>Wizualizacja Danych</title>
-  </head>
 
-  <body>
-    <div class="container mt-4">
-      <h1 class="text-center mb-4 fw-bold">Wizualizacja danych o udarach</h1>
-      <div class="graph-container">
-        <h3 class="mb-3">Dostępne dashboardy:</h3>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-          <div class="col">
-            <div class="card h-100">
-              <a href="/dashboard_stats" class="text-decoration-none text-dark">
-                <img
-                  src="{{ url_for('static', filename='images/1.jpg') }}"
-                  class="card-img-top"
-                  alt="Obrazek przedstawiający statystyki zbioru danych"
-                />
-                <div class="card-body">
-                  <h5 class="card-title text-center">Statystyki zbioru</h5>
-                </div>
-              </a>
-            </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <style>
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+  <title>Wizualizacja Danych</title>
+</head>
+
+<body>
+  <div class="container mt-4">
+    <h1 class="text-center mb-4 fw-bold">Wizualizacja danych o udarach</h1>
+    <div class="graph-container">
+      <h3 class="mb-3">Dostępne dashboardy:</h3>
+      <div class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="col">
+          <div class="card h-100">
+            <a href="/dashboard_stats" class="text-decoration-none text-dark">
+              <img src="{{ url_for('static', filename='images/1.jpg') }}" class="card-img-top"
+                alt="Obrazek przedstawiający statystyki zbioru danych" />
+              <div class="card-body">
+                <h5 class="card-title text-center">Statystyki zbioru</h5>
+              </div>
+            </a>
           </div>
-          <div class="col">
-            <div class="card h-100">
-              <a href="/dashboard_pie" class="text-decoration-none text-dark">
-                <img
-                  src="{{ url_for('static', filename='images/2.jpg') }}"
-                  class="card-img-top"
-                  alt="Wykres kołowy przedstawiający rozkład przypadków udaru"
-                />
-                <div class="card-body">
-                  <h5 class="card-title text-center">Rozkład przypadków udaru</h5>
-                </div>
-              </a>
-            </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <a href="/dashboard_pie" class="text-decoration-none text-dark">
+              <img src="{{ url_for('static', filename='images/2.jpg') }}" class="card-img-top"
+                alt="Wykres kołowy przedstawiający rozkład przypadków udaru" />
+              <div class="card-body">
+                <h5 class="card-title text-center">Rozkład przypadków udaru</h5>
+              </div>
+            </a>
           </div>
-          <div class="col">
-            <div class="card h-100">
-              <a href="/dashboard_age" class="text-decoration-none text-dark">
-                <img
-                  src="{{ url_for('static', filename='images/3.jpg') }}"
-                  class="card-img-top"
-                  alt="Histogram przedstawiający rozkład wieku względem udaru"
-                />
-                <div class="card-body">
-                  <h5 class="card-title text-center">Rozkład wieku względem udaru</h5>
-                </div>
-              </a>
-            </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <a href="/dashboard_age" class="text-decoration-none text-dark">
+              <img src="{{ url_for('static', filename='images/3.jpg') }}" class="card-img-top"
+                alt="Histogram przedstawiający rozkład wieku względem udaru" />
+              <div class="card-body">
+                <h5 class="card-title text-center">Rozkład wieku względem udaru</h5>
+              </div>
+            </a>
           </div>
-          <div class="col">
-            <div class="card h-100">
-              <a href="/dashboard_scatter" class="text-decoration-none text-dark">
-                <img
-                  src="{{ url_for('static', filename='images/4.jpg') }}"
-                  class="card-img-top"
-                  alt="Wykres punktowy poziomu glukozy a BMI"
-                />
-                <div class="card-body">
-                  <h5 class="card-title text-center">Poziom glukozy a BMI</h5>
-                </div>
-              </a>
-            </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <a href="/dashboard_scatter" class="text-decoration-none text-dark">
+              <img src="{{ url_for('static', filename='images/4.jpg') }}" class="card-img-top"
+                alt="Wykres punktowy poziomu glukozy a BMI" />
+              <div class="card-body">
+                <h5 class="card-title text-center">Poziom glukozy a BMI</h5>
+              </div>
+            </a>
           </div>
-          <div class="col">
-            <div class="card h-100">
-              <a href="/dashboard_work" class="text-decoration-none text-dark">
-                <img
-                  src="{{ url_for('static', filename='images/5.jpg') }}"
-                  class="card-img-top"
-                  alt="Wykres zależności rodzaju pracy i płci względem udaru"
-                />
-                <div class="card-body">
-                  <h5 class="card-title text-center">Rodzaj pracy i płeć względem udaru</h5>
-                </div>
-              </a>
-            </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <a href="/dashboard_boxplot" class="text-decoration-none text-dark">
+              <img src="{{ url_for('static', filename='images/5.jpg') }}" class="card-img-top"
+                alt="Boxplot przedstawiający wiek względem statusu palenia i udaru" />
+              <div class="card-body">
+                <h5 class="card-title text-center">Wiek względem statusu palenia i udaru</h5>
+              </div>
+            </a>
           </div>
-          <div class="col">
-            <div class="card h-100">
-              <a href="/dashboard_smoking" class="text-decoration-none text-dark">
-                <img
-                  src="{{ url_for('static', filename='images/6.jpg') }}"
-                  class="card-img-top"
-                  alt="Wykres zależności rodzaju pracy i płci względem udaru"
-                />
-                <div class="card-body">
-                  <h5 class="card-title text-center">Status palenia względem udaru</h5>
-                </div>
-              </a>
-            </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <a href="/dashboard_work" class="text-decoration-none text-dark">
+              <img src="{{ url_for('static', filename='images/6.jpg') }}" class="card-img-top"
+                alt="Wykres słupkowy rodzaju pracy i płeć względem udaru" />
+              <div class="card-body">
+                <h5 class="card-title text-center">Rodzaj pracy i płeć względem udaru</h5>
+              </div>
+            </a>
           </div>
-          <div class="col">
-            <div class="card h-100">
-              <a href="/dashboard_cm" class="text-decoration-none text-dark">
-                <img
-                  src="{{ url_for('static', filename='images/8.jpg') }}"
-                  class="card-img-top"
-                  alt="Macierz korelacji dla zmiennych numerycznych"
-                />
-                <div class="card-body">
-                  <h5 class="card-title text-center">Macierz korelacji - zmienne numeryczne</h5>
-                </div>
-              </a>
-            </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <a href="/dashboard_cm" class="text-decoration-none text-dark">
+              <img src="{{ url_for('static', filename='images/7.jpg') }}" class="card-img-top"
+                alt="Macierz korelacji dla zmiennych numerycznych" />
+              <div class="card-body">
+                <h5 class="card-title text-center">Macierz korelacji - zmienne numeryczne</h5>
+              </div>
+            </a>
           </div>
-          <div class="col">
-            <div class="card h-100">
-              <a href="/dashboard_categorical" class="text-decoration-none text-dark">
-                <img
-                  src="{{ url_for('static', filename='images/8.jpg') }}"
-                  class="card-img-top"
-                  alt="Macierz korelacji dla zmiennych kategorycznych"
-                />
-                <div class="card-body">
-                  <h5 class="card-title text-center">Macierz korelacji - zmienne kategoryczne</h5>
-                </div>
-              </a>
-            </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <a href="/dashboard_categorical" class="text-decoration-none text-dark">
+              <img src="{{ url_for('static', filename='images/7.jpg') }}" class="card-img-top"
+                alt="Macierz korelacji dla zmiennych kategorycznych" />
+              <div class="card-body">
+                <h5 class="card-title text-center">Macierz korelacji - zmienne kategoryczne</h5>
+              </div>
+            </a>
           </div>
         </div>
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>

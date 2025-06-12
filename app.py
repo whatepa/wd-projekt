@@ -91,22 +91,20 @@ def dashboard_scatter():
     graph_html = fig.to_html(full_html=False)
     return render_template('dashboard_scatter.html', graph_html=graph_html)
 
+@app.route('/dashboard_boxplot')
+def dashboard_boxplot():
+    fig = px.box(df_mapped, x="smoking_status", y="age", color="stroke",
+             title="Wiek a status palenia i udar", height=650,
+             labels={"smoking_status": "Status palenia", "age": "Wiek", "stroke": "Udar (0 = nie, 1 = tak)"})
+    graph_html = fig.to_html(full_html=False)
+    return render_template('dashboard_boxplot.html', graph_html=graph_html)
+
 @app.route('/dashboard_work')
 def dashboard_work():
     fig = px.histogram(df_mapped, x='work_type', color='gender', facet_col='stroke', height=650,
                        title='Rodzaj pracy i płeć względem udaru')
     graph_html = fig.to_html(full_html=False)
     return render_template('dashboard_work.html', graph_html=graph_html)
-
-@app.route('/dashboard_smoking')
-def dashboard_boxplot():
-    fig = px.bar(df_mapped.groupby(['smoking_status', 'stroke']).size().reset_index(name='count'),
-              x="smoking_status", y="count", color="stroke", barmode="group", height=650,
-              title="Status palenia a wystąpienie udaru",
-              labels={"stroke": "Udar"})
-    
-    graph_html = fig.to_html(full_html=False)
-    return render_template('dashboard_smoking.html', graph_html=graph_html)
 
 @app.route('/dashboard_cm')
 def dashboard_cm():
