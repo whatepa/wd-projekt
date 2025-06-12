@@ -98,6 +98,16 @@ def dashboard_work():
     graph_html = fig.to_html(full_html=False)
     return render_template('dashboard_work.html', graph_html=graph_html)
 
+@app.route('/dashboard_smoking')
+def dashboard_boxplot():
+    fig = px.bar(df_mapped.groupby(['smoking_status', 'stroke']).size().reset_index(name='count'),
+              x="smoking_status", y="count", color="stroke", barmode="group", height=650,
+              title="Status palenia a wystąpienie udaru",
+              labels={"stroke": "Udar"})
+    
+    graph_html = fig.to_html(full_html=False)
+    return render_template('dashboard_smoking.html', graph_html=graph_html)
+
 @app.route('/dashboard_cm')
 def dashboard_cm():
     numeric_df = df.select_dtypes(include=['number'])

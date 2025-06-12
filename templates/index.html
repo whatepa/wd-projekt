@@ -49,10 +49,7 @@
                   alt="Wykres kołowy przedstawiający rozkład przypadków udaru"
                 />
                 <div class="card-body">
-                  <h5 class="card-title text-center">
-                    Rozkład przypadków udaru
-                    <p>(wykres kołowy)</p>
-                  </h5>
+                  <h5 class="card-title text-center">Rozkład przypadków udaru</h5>
                 </div>
               </a>
             </div>
@@ -66,7 +63,7 @@
                   alt="Histogram przedstawiający rozkład wieku względem udaru"
                 />
                 <div class="card-body">
-                  <h5 class="card-title text-center">Rozkład wieku względem udaru (histogram)</h5>
+                  <h5 class="card-title text-center">Rozkład wieku względem udaru</h5>
                 </div>
               </a>
             </div>
@@ -80,7 +77,7 @@
                   alt="Wykres punktowy poziomu glukozy a BMI"
                 />
                 <div class="card-body">
-                  <h5 class="card-title text-center">Poziom glukozy a BMI (scatter)</h5>
+                  <h5 class="card-title text-center">Poziom glukozy a BMI</h5>
                 </div>
               </a>
             </div>
@@ -101,9 +98,23 @@
           </div>
           <div class="col">
             <div class="card h-100">
-              <a href="/dashboard_cm" class="text-decoration-none text-dark">
+              <a href="/dashboard_smoking" class="text-decoration-none text-dark">
                 <img
                   src="{{ url_for('static', filename='images/6.jpg') }}"
+                  class="card-img-top"
+                  alt="Wykres zależności rodzaju pracy i płci względem udaru"
+                />
+                <div class="card-body">
+                  <h5 class="card-title text-center">Status palenia względem udaru</h5>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <a href="/dashboard_cm" class="text-decoration-none text-dark">
+                <img
+                  src="{{ url_for('static', filename='images/8.jpg') }}"
                   class="card-img-top"
                   alt="Macierz korelacji dla zmiennych numerycznych"
                 />
@@ -117,7 +128,7 @@
             <div class="card h-100">
               <a href="/dashboard_categorical" class="text-decoration-none text-dark">
                 <img
-                  src="{{ url_for('static', filename='images/6.jpg') }}"
+                  src="{{ url_for('static', filename='images/8.jpg') }}"
                   class="card-img-top"
                   alt="Macierz korelacji dla zmiennych kategorycznych"
                 />
